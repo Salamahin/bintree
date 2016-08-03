@@ -7,15 +7,23 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class NodeTest {
-    private Node root;
-    private Node rigth;
-    private Node left;
+    private Node<Void> root;
+    private Node<Void> right;
+    private Node<Void> left;
 
     @Before
     public void setUp() throws Exception {
-        root = new Node();
-        rigth = root.addRight();
-        left = root.addLeft();
+        root = getVoidNode();
+
+        right = getVoidNode();
+        root.addRight(right);
+
+        left = getVoidNode();
+        root.addLeft(left);
+    }
+
+    private Node<Void> getVoidNode() {
+        return new Node<>(null);
     }
 
     @Test
@@ -26,12 +34,12 @@ public class NodeTest {
     @Test
     public void testNodeWithParentIsNotRoot() throws Exception {
         assertFalse(left.isRoot());
-        assertFalse(rigth.isRoot());
+        assertFalse(right.isRoot());
     }
 
     @Test
     public void testIsRight() throws Exception {
-        assertTrue(rigth.isRight());
+        assertTrue(right.isRight());
         assertFalse(left.isRight());
         assertFalse(root.isRight());
     }
@@ -39,7 +47,7 @@ public class NodeTest {
     @Test
     public void testIsLeft() throws Exception {
         assertTrue(left.isLeft());
-        assertFalse(rigth.isLeft());
+        assertFalse(right.isLeft());
         assertFalse(root.isLeft());
     }
 }

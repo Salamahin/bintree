@@ -1,40 +1,40 @@
 package com.company;
 
-import java.util.Optional;
+class Node<T> {
+    private Node<T> parent;
+    private Node<T> left;
+    private Node<T> right;
 
-class Node {
-    private Node parent;
-    private Node left;
-    private Node right;
+    private final T value;
 
-    final Node addLeft() {
-        final Node leftNode = new Node();
-
-        leftNode.parent = this;
-        this.left = leftNode;
-
-        return leftNode;
+    Node(final T value) {
+        this.value = value;
     }
 
-    final Node addRight() {
-        final Node rightNode = new Node();
-
-        rightNode.parent = this;
-        this.right = rightNode;
-
-        return rightNode;
+    final T getValue() {
+        return value;
     }
 
-    final Optional<Node> getParent() {
-        return Optional.ofNullable(parent);
+    final void addLeft(final Node<T> n) {
+        n.parent = this;
+        this.left = n;
     }
 
-    final Optional<Node> getLeft() {
-        return Optional.ofNullable(left);
+    final void addRight(final Node<T> n) {
+        n.parent = this;
+        this.right = n;
     }
 
-    final Optional<Node> getRight() {
-        return Optional.ofNullable(right);
+    Node<T> getParent() {
+        return parent;
+    }
+
+    Node<T> getLeft() {
+        return left;
+    }
+
+    Node<T> getRight() {
+        return right;
     }
 
     final boolean isRoot() {
