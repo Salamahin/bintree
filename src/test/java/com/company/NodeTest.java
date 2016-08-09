@@ -3,8 +3,6 @@ package com.company;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -41,15 +39,33 @@ public class NodeTest {
 
     @Test
     public void testIsRight() throws Exception {
-        assertTrue(right.isRight());
-        assertFalse(left.isRight());
-        assertFalse(root.isRight());
+        assertTrue(right.isInRightSubtree());
+        assertFalse(left.isInRightSubtree());
+        assertFalse(root.isInRightSubtree());
     }
 
     @Test
     public void testIsLeft() throws Exception {
-        assertTrue(left.isLeft());
-        assertFalse(right.isLeft());
-        assertFalse(root.isLeft());
+        assertTrue(left.isInLeftSubtree());
+        assertFalse(right.isInLeftSubtree());
+        assertFalse(root.isInLeftSubtree());
+    }
+
+    @Test
+    public void testLeftIsLeaf() throws Exception {
+        assertTrue(left.isLeaf());
+    }
+
+    @Test
+    public void testRightIsLeaf() throws Exception {
+        assertTrue(right.isLeaf());
+    }
+
+    @Test
+    public void testNodeWithChildIsNotLeaf() throws Exception {
+        final Node<Void> nodeWithChild = getVoidNode();
+        nodeWithChild.addLeft(new Node<>(null));
+
+        assertFalse(nodeWithChild.isLeaf());
     }
 }

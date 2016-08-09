@@ -41,11 +41,15 @@ class Node<T> {
         return parent == null;
     }
 
-    final boolean isRight() {
+    final boolean isInRightSubtree() {
         return !isRoot() && parent.right == this;
     }
 
-    final boolean isLeft() {
+    final boolean isInLeftSubtree() {
         return !isRoot() && parent.left == this;
+    }
+
+    final boolean isLeaf() {
+        return getLeft() == null && getRight() == null;
     }
 }

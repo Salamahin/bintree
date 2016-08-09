@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.LinkedList;
-import java.util.List;
-
-class BinTreeBuilder<T extends Comparable<T>> {
+final class BinTreeBuilder<T extends Comparable<T>> {
     private final Node<T> root;
 
     private BinTreeBuilder(final Node<T> root) {
@@ -46,29 +43,5 @@ class BinTreeBuilder<T extends Comparable<T>> {
 
     Node<T> build() {
         return root;
-    }
-
-    private static <T extends Comparable<T>> Node<T> toRoot(Node<T> node) {
-        while (!node.isRoot())
-            node = node.getParent();
-        return node;
-    }
-
-    private static <T extends Comparable<T>> void appendToList(final Node<T> treeNode, final List<T> values) {
-        if (treeNode.getLeft() != null)
-            appendToList(treeNode.getLeft(), values);
-
-        values.add(treeNode.getValue());
-
-        if (treeNode.getRight() != null)
-            appendToList(treeNode.getRight(), values);
-    }
-
-    static <T extends Comparable<T>> List<T> toSortedList(final Node<T> treeNode) {
-        final Node<T> root = toRoot(treeNode);
-
-        final List<T> values = new LinkedList<>();
-        appendToList(root, values);
-        return values;
     }
 }
