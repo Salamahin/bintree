@@ -24,8 +24,8 @@ final class BinTreeTools {
             appendToList(treeNode.getRight(), values);
     }
 
-    static <T> List<T> toSortedList(final Node<T> treeNode) {
-        final Node<T> root = toRoot(treeNode);
+    static <T> List<T> toSortedList(final Node<T> anyTreeNode) {
+        final Node<T> root = toRoot(anyTreeNode);
 
         final List<T> values = new LinkedList<>();
         appendToList(root, values);
@@ -47,8 +47,8 @@ final class BinTreeTools {
         return findElem(elem, node.getRight());
     }
 
-    static <T extends Comparable<T>> Node<T> find(final T value, final Node<T> treeNode) {
-        final Node<T> root = toRoot(treeNode);
+    static <T extends Comparable<T>> Node<T> find(final T value, final Node<T> anyTreeNode) {
+        final Node<T> root = toRoot(anyTreeNode);
         return findElem(value, root);
 
     }

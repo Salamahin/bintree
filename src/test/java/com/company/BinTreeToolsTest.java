@@ -29,6 +29,9 @@ public class BinTreeToolsTest {
                 .add(-2)
                 .build();
 
+
+        System.out.println(new BinTreePrinter<>(i).printNode());
+
         final List<Integer> integers = BinTreeTools.toSortedList(i);
         assertSorted(integers);
     }
@@ -42,6 +45,8 @@ public class BinTreeToolsTest {
                 .add(-1)
                 .add(1)
                 .build();
+
+        throw new AssertionError();
     }
 
     @Test(expected = NoSuchNode.class)
@@ -65,6 +70,6 @@ public class BinTreeToolsTest {
 
         final Node<Integer> node = BinTreeTools.find(7, i);
 
-        assertEquals(7L, (int)node.getValue());
+        assertEquals(7L, (int) node.getValue());
     }
 }
