@@ -53,9 +53,12 @@ final class BinTreeTools {
 
     }
 
-    static <T> Node<T> nextElem(final Node<T> treeNode) {
-        if (treeNode.isInRightSubtree() && treeNode.isLeaf())
-            return null;
+    static <T> Node<T> next(final Node<T> treeNode) {
+        if (treeNode.getRight() != null)
+            return treeNode.getRight();
+
+        if (treeNode.isInLeftSubtree())
+            return treeNode.getParent();
 
         return null;
     }
