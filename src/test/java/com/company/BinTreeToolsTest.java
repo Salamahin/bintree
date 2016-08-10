@@ -48,11 +48,11 @@ public class BinTreeToolsTest {
                     .add(4)
                     .add(1)
                     .add(-1)
-                    .add(0)
                     .add(17)
                     .add(3)
                     .add(2)
                     .add(5)
+                .add(6)
                     .build();
 
             System.out.println(new BinTreePrinter<>(root).printNode());
@@ -60,31 +60,39 @@ public class BinTreeToolsTest {
 
         @Test
         public void testNextElemIsRightChild() throws Exception {
-            final Node<Integer> elem = find(-1, root);
+            final Node<Integer> elem = find(4, root);
             final Node<Integer> nextElem = next(elem);
 
             assertNotNull(nextElem);
-            assertEquals(0, (int) nextElem.getValue());
+            assertEquals(5, (int) nextElem.getValue());
         }
 
 
         @Test
         public void testNextElemOfLeftSubtreeIsParent() throws Exception {
-            final Node<Integer> elem = find(1, root);
+            final Node<Integer> elem = find(-1, root);
             final Node<Integer> nextElem = next(elem);
 
             assertNotNull(nextElem);
-            assertEquals(2, (int) nextElem.getValue());
+            assertEquals(1, (int) nextElem.getValue());
         }
 
         @Test
         public void testNextElemOfRightSubtreeIsTheVertexOfUpperLeftSubtree() throws Exception {
-            final Node<Integer> elem = find(3, root);
+            final Node<Integer> elem = find(6, root);
             final Node<Integer> nextElem = next(elem);
 
             assertNotNull(nextElem);
-            assertEquals(4, (int) nextElem.getValue());
+            assertEquals(7, (int) nextElem.getValue());
         }
+
+      @Test
+      public void testNextElemOfRightLeafIsNull() throws Exception {
+        final Node<Integer> elem = find(17, root);
+        final Node<Integer> nextElem = next(elem);
+
+        assertNull(nextElem);
+      }
     }
 
 
