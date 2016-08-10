@@ -38,6 +38,72 @@ public class BinTreeToolsTest {
         assertSorted(integers);
     }
 
+    @Test(expected = NoSuchNode.class)
+    public void testFindNotPresentElementThrowsExceptionElemIsInNearestSubtree() throws Exception {
+        final Node<Integer> root = BinTreeBuilder
+                .fromRoot(3)
+                .add(2)
+                .build();
+
+        find(4, root);
+    }
+
+    @Test
+    public void testFind() throws Exception {
+        final Node<Integer> root = BinTreeBuilder
+                .fromRoot(3)
+                .add(2)
+                .add(-1)
+                .add(7)
+                .build();
+
+        final Node<Integer> node = find(7, root);
+
+        assertEquals(7L, (int) node.getValue());
+    }
+
+    @Test
+    public void testPivotLeft() throws Exception {
+        final Node<Integer> original = BinTreeBuilder
+                .fromRoot(5)
+                .add(3)
+                .add(8)
+                .add(7)
+                .add(10)
+                .build();
+
+        final Node<Integer> leftPivoted = BinTreeBuilder
+                .fromRoot(8)
+                .add(5)
+                .add(10)
+                .add(3)
+                .add(7)
+                .build();
+
+        assertEquals(leftPivoted, leftPivot(original));
+    }
+
+    @Test
+    public void testPivotRight() throws Exception {
+        final Node<Integer> original = BinTreeBuilder
+                .fromRoot(5)
+                .add(3)
+                .add(7)
+                .add(4)
+                .add(2)
+                .build();
+
+        final Node<Integer> rightPivoted = BinTreeBuilder
+                .fromRoot(3)
+                .add(2)
+                .add(5)
+                .add(4)
+                .add(7)
+                .build();
+
+        assertEquals(rightPivoted, BinTreeTools.rightPivot(original));
+    }
+
     public class NextElemContext {
         private Node<Integer> root;
 
@@ -52,10 +118,8 @@ public class BinTreeToolsTest {
                     .add(3)
                     .add(2)
                     .add(5)
-                .add(6)
+                    .add(6)
                     .build();
-
-            System.out.println(new BinTreePrinter<>(root).printNode());
         }
 
         @Test
@@ -86,37 +150,12 @@ public class BinTreeToolsTest {
             assertEquals(7, (int) nextElem.getValue());
         }
 
-      @Test
-      public void testNextElemOfRightLeafIsNull() throws Exception {
-        final Node<Integer> elem = find(17, root);
-        final Node<Integer> nextElem = next(elem);
+        @Test
+        public void testNextElemOfRightLeafIsNull() throws Exception {
+            final Node<Integer> elem = find(17, root);
+            final Node<Integer> nextElem = next(elem);
 
-        assertNull(nextElem);
-      }
-    }
-
-
-    @Test(expected = NoSuchNode.class)
-    public void testFindNotPresentElementThrowsExceptionElemIsInNearestSubtree() throws Exception {
-        final Node<Integer> root = BinTreeBuilder
-                .fromRoot(3)
-                .add(2)
-                .build();
-
-        find(4, root);
-    }
-
-    @Test
-    public void testFind() throws Exception {
-        final Node<Integer> root = BinTreeBuilder
-                .fromRoot(3)
-                .add(2)
-                .add(-1)
-                .add(7)
-                .build();
-
-        final Node<Integer> node = find(7, root);
-
-        assertEquals(7L, (int) node.getValue());
+            assertNull(nextElem);
+        }
     }
 }

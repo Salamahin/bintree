@@ -1,11 +1,12 @@
 package com.company;
 
+import java.util.Objects;
+
 class Node<T> {
+    private final T value;
     private Node<T> parent;
     private Node<T> left;
     private Node<T> right;
-
-    private final T value;
 
     Node(final T value) {
         this.value = value;
@@ -13,16 +14,6 @@ class Node<T> {
 
     final T getValue() {
         return value;
-    }
-
-    final void addLeft(final Node<T> n) {
-        n.parent = this;
-        this.left = n;
-    }
-
-    final void addRight(final Node<T> n) {
-        n.parent = this;
-        this.right = n;
     }
 
     Node<T> getParent() {
@@ -33,8 +24,18 @@ class Node<T> {
         return left;
     }
 
+    final void setLeft(final Node<T> n) {
+        this.left = n;
+        n.parent = this;
+    }
+
     Node<T> getRight() {
         return right;
+    }
+
+    final void setRight(final Node<T> n) {
+        this.right = n;
+        n.parent = this;
     }
 
     final boolean isRoot() {
@@ -51,5 +52,20 @@ class Node<T> {
 
     final boolean isLeaf() {
         return getLeft() == null && getRight() == null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node<?> node = (Node<?>) o;
+        return Objects.equals(left, node.left) &&
+                Objects.equals(right, node.right) &&
+                Objects.equals(value, node.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(left, right, value);
     }
 }

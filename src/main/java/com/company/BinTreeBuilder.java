@@ -24,7 +24,7 @@ final class BinTreeBuilder<T extends Comparable<T>> {
         if (left != null)
             addToSubtree(left, value);
         else
-            parent.addLeft(new Node<>(value));
+            parent.setLeft(new Node<>(value));
     }
 
     private void appendToRightSubtree(final Node<T> parent, final T value) {
@@ -33,7 +33,7 @@ final class BinTreeBuilder<T extends Comparable<T>> {
         if (right != null)
             addToSubtree(right, value);
         else
-            parent.addRight(new Node<>(value));
+            parent.setRight(new Node<>(value));
     }
 
     BinTreeBuilder<T> add(final T value) {

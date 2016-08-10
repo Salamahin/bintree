@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Deprecated
-class BinTreePrinter<T extends Comparable<?>> {
+class BinTreePrinter<T> {
 
     private final StringBuilder sb;
     private final Node<T> root;
