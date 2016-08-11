@@ -45,7 +45,7 @@ public class BinTreeToolsTest {
                 .add(2)
                 .build();
 
-        find(4, root);
+        find(999, root);
     }
 
     @Test

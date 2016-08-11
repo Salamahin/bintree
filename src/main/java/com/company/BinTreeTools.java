@@ -84,7 +84,7 @@ final class BinTreeTools
     if (treeNode.getRight() != null)
       return goDownToLeftSubtree(treeNode.getRight());
 
-    if (treeNode.isInLeftSubtree() && treeNode.getRight() == null)
+    if (treeNode.isInLeftSubtree())
       return treeNode.getParent();
 
     if (treeNode.isInRightSubtree())
