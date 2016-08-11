@@ -119,21 +119,15 @@ public class BinTreeToolsTest {
                     .add(2)
                     .add(5)
                     .add(6)
+                    .add(19)
+                    .add(8)
                     .build();
+
+          System.out.println(new BinTreePrinter<>(root).printNode());
         }
 
         @Test
-        public void testNextElemIsRightChild() throws Exception {
-            final Node<Integer> elem = find(4, root);
-            final Node<Integer> nextElem = next(elem);
-
-            assertNotNull(nextElem);
-            assertEquals(5, (int) nextElem.getValue());
-        }
-
-
-        @Test
-        public void testNextElemOfLeftSubtreeIsParent() throws Exception {
+        public void testNextElemOfLeftNodeWithNoRightSubtreeIsParent() throws Exception {
             final Node<Integer> elem = find(-1, root);
             final Node<Integer> nextElem = next(elem);
 
@@ -142,7 +136,7 @@ public class BinTreeToolsTest {
         }
 
         @Test
-        public void testNextElemOfRightSubtreeIsTheVertexOfUpperLeftSubtree() throws Exception {
+        public void testNextElemOfRightNodeWithNoRightSubtreeIsTheRootOfUpperLeftSubtree() throws Exception {
             final Node<Integer> elem = find(6, root);
             final Node<Integer> nextElem = next(elem);
 
@@ -151,11 +145,20 @@ public class BinTreeToolsTest {
         }
 
         @Test
-        public void testNextElemOfRightLeafIsNull() throws Exception {
-            final Node<Integer> elem = find(17, root);
+        public void testNextElemOfVeryRightLeafIsNull() throws Exception {
+            final Node<Integer> elem = find(19, root);
             final Node<Integer> nextElem = next(elem);
 
             assertNull(nextElem);
         }
+
+      @Test
+      public void testNextElemOfValueInRightSubtreeIsTheMostLeftNodeOfRightSubtree() throws Exception {
+        final Node<Integer> elem = find(1, root);
+        final Node<Integer> nextElem = next(elem);
+
+        assertNotNull(nextElem);
+        assertEquals(2, (int) nextElem.getValue());
+      }
     }
 }

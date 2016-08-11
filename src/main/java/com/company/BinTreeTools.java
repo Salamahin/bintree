@@ -3,94 +3,113 @@ package com.company;
 import java.util.LinkedList;
 import java.util.List;
 
-final class BinTreeTools {
-    private BinTreeTools() {
-        throw new AssertionError();
-    }
+final class BinTreeTools
+{
+  private BinTreeTools()
+  {
+    throw new AssertionError();
+  }
 
-    private static <T> Node<T> toRoot(Node<T> node) {
-        while (!node.isRoot())
-            node = node.getParent();
-        return node;
-    }
+  private static <T> Node<T> toRoot(Node<T> node)
+  {
+    while (!node.isRoot())
+      node=node.getParent();
+    return node;
+  }
 
-    private static <T> void appendToList(final Node<T> treeNode, final List<T> values) {
-        if (treeNode.getLeft() != null)
-            appendToList(treeNode.getLeft(), values);
+  private static <T> void appendToList(final Node<T> treeNode, final List<T> values)
+  {
+    if (treeNode.getLeft() != null)
+      appendToList(treeNode.getLeft(), values);
 
-        values.add(treeNode.getValue());
+    values.add(treeNode.getValue());
 
-        if (treeNode.getRight() != null)
-            appendToList(treeNode.getRight(), values);
-    }
+    if (treeNode.getRight() != null)
+      appendToList(treeNode.getRight(), values);
+  }
 
-    static <T> List<T> toSortedList(final Node<T> anyTreeNode) {
-        final Node<T> root = toRoot(anyTreeNode);
+  static <T> List<T> toSortedList(final Node<T> anyTreeNode)
+  {
+    final Node<T> root=toRoot(anyTreeNode);
 
-        final List<T> values = new LinkedList<>();
-        appendToList(root, values);
-        return values;
-    }
+    final List<T> values=new LinkedList<>();
+    appendToList(root, values);
+    return values;
+  }
 
-    private static <T extends Comparable<T>> Node<T> findElem(final T elem, final Node<T> node) {
-        if (node == null)
-            throw new NoSuchNode();
+  private static <T extends Comparable<T>> Node<T> findElem(final T elem, final Node<T> node)
+  {
+    if (node == null)
+      throw new NoSuchNode();
 
-        final int comparisionResult = elem.compareTo(node.getValue());
+    final int comparisionResult=elem.compareTo(node.getValue());
 
-        if (comparisionResult == 0)
-            return node;
+    if (comparisionResult == 0)
+      return node;
 
-        if (comparisionResult < 0)
-            return findElem(elem, node.getLeft());
+    if (comparisionResult < 0)
+      return findElem(elem, node.getLeft());
 
-        return findElem(elem, node.getRight());
-    }
+    return findElem(elem, node.getRight());
+  }
 
-    static <T extends Comparable<T>> Node<T> find(final T value, final Node<T> anyTreeNode) {
-        final Node<T> root = toRoot(anyTreeNode);
-        return findElem(value, root);
+  static <T extends Comparable<T>> Node<T> find(final T value, final Node<T> anyTreeNode)
+  {
+    final Node<T> root=toRoot(anyTreeNode);
+    return findElem(value, root);
 
-    }
+  }
 
-    private static <T> Node<T> goUpTillInRightSubtree(final Node<T> node) {
-        if (node.isRoot())
-            return null;
+  private static <T> Node<T> goUpTillInRightSubtree(final Node<T> node)
+  {
+    if (node.isRoot())
+      return null;
 
-        if (node.isInLeftSubtree())
-            return node.getParent();
+    if (node.isInLeftSubtree())
+      return node.getParent();
 
-        return goUpTillInRightSubtree(node.getParent());
-    }
+    return goUpTillInRightSubtree(node.getParent());
+  }
 
-    static <T> Node<T> next(final Node<T> treeNode) {
-        if (treeNode.getRight() != null)
-            return treeNode.getRight();
+  private static <T> Node<T> goDownToLeftSubtree(final Node<T> node)
+  {
+    if (node.getLeft() == null)
+      return node;
 
-        if (treeNode.isInLeftSubtree())
-            return treeNode.getParent();
+    return goDownToLeftSubtree(node.getLeft());
+  }
 
-        if (treeNode.isInRightSubtree())
-            return goUpTillInRightSubtree(treeNode);
+  static <T> Node<T> next(final Node<T> treeNode)
+  {
+    if (treeNode.getRight() != null)
+      return goDownToLeftSubtree(treeNode.getRight());
 
-        return null;
-    }
+    if (treeNode.isInLeftSubtree() && treeNode.getRight() == null)
+      return treeNode.getParent();
 
-    static <T> Node<T> leftPivot(final Node<T> root) {
-        final Node<T> newRoot = root.getRight();
+    if (treeNode.isInRightSubtree())
+      return goUpTillInRightSubtree(treeNode);
 
-        root.setRight(newRoot.getLeft());
-        newRoot.setLeft(root);
+    return null;
+  }
 
-        return newRoot;
-    }
+  static <T> Node<T> leftPivot(final Node<T> root)
+  {
+    final Node<T> newRoot=root.getRight();
 
-    static <T> Node<T> rightPivot(final Node<T> root) {
-        final Node<T> newRoot = root.getLeft();
+    root.setRight(newRoot.getLeft());
+    newRoot.setLeft(root);
 
-        root.setLeft(newRoot.getRight());
-        newRoot.setRight(root);
+    return newRoot;
+  }
 
-        return newRoot;
-    }
+  static <T> Node<T> rightPivot(final Node<T> root)
+  {
+    final Node<T> newRoot=root.getLeft();
+
+    root.setLeft(newRoot.getRight());
+    newRoot.setRight(root);
+
+    return newRoot;
+  }
 }
